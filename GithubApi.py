@@ -45,7 +45,7 @@ class GithubApi(object):
 
     '''POST / user / repos'''
     def add_repo(self, new_repo_name):
-        self.create_repo_payload["name"]=new_repo_name
+        self.create_repo_payload["name"] = new_repo_name
         self.payld = self.create_repo_payload
         self.payld = json.dumps(self.payld)
         self.new_repo = self.session.post(url=self.URL+'/{}/repos'.format(self.user),
@@ -60,7 +60,7 @@ class GithubApi(object):
         self.create_repo_payload["base"] = base
         self.payld = self.create_repo_payload
         self.payld = json.dumps(self.payld)
-        self.new_request = self.session.post(url = self.URL+'/repos/{}/{}/pulls'.format(self.user,repo_name),
+        self.new_request = self.session.post(url=self.URL+'/repos/{}/{}/pulls'.format(self.user,repo_name),
                                              data=self.payld, auth=(self.login, self.passwd))
         if self.new_request.status_code != 201:
             print "FAIL, pull request not raised!!!"
@@ -68,7 +68,7 @@ class GithubApi(object):
     '''DELETE / repos /:owner /:repo'''
     def delete_repository(self, repo_name):
         self.deleted_repo = self.session.delete(self.URL+'/repos/{}/{}'.format(self.user, repo_name))
-        if self.deleted_repo.status_code!=204:
+        if self.deleted_repo.status_code != 204:
             print "FAIL, repo not deleted!!!"
 
     '''PUT / repos /:owner /:repo / pulls /:number / merge'''
@@ -79,7 +79,7 @@ class GithubApi(object):
         self.payld = json.dumps(self.merge_pull_request_payload)
         self.accept_pull_req = self.session.post(url=self.URL + '/repos/{}/{}/pulls/{}/merge'.format(self.user,
                                                 repo_name, pull_nr), data=self.payld, auth=(self.login, self.passwd))
-        if self.accept_pull_req.status_code!=204:
+        if self.accept_pull_req.status_code != 204:
             print "FAIL, repo not deleted!!!"
 
     ''' POST / repos /:owner /:repo / git / commits'''
@@ -90,7 +90,7 @@ class GithubApi(object):
         self.payld = json.dumps(self.commit_payload)
         self.commit_request = self.session.post(url = self.URL+'/repos/{}/{}/git/commits'.format(self.user,repo_name),
                                                 data=self.payld, auth=(self.login, self.passwd))
-        if self.commit_request.status_code!=201:
+        if self.commit_request.status_code != 201:
             print "FAIL, commit not succesfull!!!"
 
 
